@@ -1,7 +1,9 @@
 import React from "react";
 import LogOut from "../componenets/logout";
+import { useNavigate } from "react-router-dom";
 
 const AlumniDashboard = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex bg-black min-h-screen text-white">
       {/* Left Sidebar Navigation */}
@@ -11,25 +13,25 @@ const AlumniDashboard = () => {
           Feed
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/profile")}
+          onClick={() => (navigate("/alumni/profile"))}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Profile
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/questions")}
+          onClick={() => (navigate("/alumni/questions"))}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Questions
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/post")}
+          onClick={() => navigate("/alumni/post")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Post
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/request")}
+          onClick={() => navigate("/alumni/request")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Connection request

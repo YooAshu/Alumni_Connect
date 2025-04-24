@@ -1,16 +1,37 @@
-import React, { useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import LogOut from "../componenets/logout";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const StudentQuestionPage = () => {
   const [question, setQuestion] = useState("");
   const [questions, setQuestions] = useState([]);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (question.trim()) {
-      setQuestions([...questions, question]);
-      setQuestion("");
+      const response = await axios.post("/api/user/post-question", {
+        content: question,
+      });
+      console.log(response.data);
+      if (response.status === 201) {
+        setQuestions([...questions, { content: question }]);
+        setQuestion("");
+      }
     }
   };
+
+  const getAllQuestions = async () => {
+    const response = await axios.get("/api/user/all-questions");
+    console.log(response.data);
+    if (response.status === 200) {
+      setQuestions(response.data.data);
+    }
+  };
+
+  useEffect(() => {
+    getAllQuestions();
+  }, []);
+  const navigate = useNavigate();
 
   return (
     <div className="flex bg-black min-h-screen text-white">
@@ -19,12 +40,12 @@ const StudentQuestionPage = () => {
         <div className="mb-10 font-sans font-bold text-2xl">Alumni Connect</div>
         <button
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
-          onClick={() => (window.location.href = "/student")}
+          onClick={() => navigate("/student")}
         >
           Feed
         </button>
         <button
-          onClick={() => (window.location.href = "/student/profile")}
+          onClick={() => navigate("/student/profile")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Profile
@@ -33,7 +54,7 @@ const StudentQuestionPage = () => {
           Questions
         </button>
         <button
-          onClick={() => (window.location.href = "/student/connect")}
+          onClick={() => navigate("/student/connect")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Connect
@@ -74,9 +95,28 @@ const StudentQuestionPage = () => {
               {questions.map((q, index) => (
                 <li
                   key={index}
-                  className="bg-[#1a1a2e] p-4 border border-gray-600 rounded-md"
+                  className="flex items-start space-x-4 bg-[#1a1a2e] p-4 border border-gray-600 rounded-md"
                 >
-                  {q}
+                  <img
+                    src={
+                      q.createdBy.avatarImage
+                        ? q.createdBy.avatarImage
+                        : `https://api.dicebear.com/9.x/big-smile/svg?seed=${q.createdBy.rollNumber}&backgroundColor=c0aede`
+                    }
+                    alt=""
+                    className="rounded-full w-12 h-12"
+                  />
+                  <div className="flex-1">
+                    <div className="text-gray-400 text-sm">
+                      {q.createdBy.fullName} •
+                    </div>
+                    <p className="mt-2 text-white">{q.content}</p>
+                    <div className="flex items-center space-x-4 mt-4">
+                      <span className="text-gray-400">
+                        {q.answers} answers
+                      </span>
+                    </div>
+                  </div>
                 </li>
               ))}
             </ul>

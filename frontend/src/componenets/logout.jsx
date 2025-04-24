@@ -2,7 +2,6 @@
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import { useSocket } from "../context/SoketContext.jsx";
 
 const LogOut = () => {
   const navigate = useNavigate();

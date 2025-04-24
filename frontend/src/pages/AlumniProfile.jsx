@@ -6,6 +6,7 @@ import axios from "axios";
 const AlumniProfile = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [posts, setPosts] = useState([]); // State for user's posts
 
   const getUser = async () => {
     try {
@@ -20,8 +21,18 @@ const AlumniProfile = () => {
     }
   };
 
+  const getUserPosts = async () => {
+    try {
+      const response = await axios.get("/api/user/my-posts"); // Replace with your API endpoint
+      setPosts(response.data.data);
+    } catch (error) {
+      console.error("Failed to fetch posts:", error);
+    }
+  };
+
   useEffect(() => {
     getUser();
+    getUserPosts();
   }, []);
 
   return (
@@ -29,29 +40,23 @@ const AlumniProfile = () => {
       {/* Left Sidebar Navigation */}
       <aside className="flex flex-col bg-[#0f0f1c] p-6 border-gray-800 border-r w-64">
         <div className="mb-10 font-sans font-bold text-2xl">Alumni Connect</div>
-        <button
-          className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
-          onClick={() => (window.location.href = "/alumni")}
-        >
-          Feed
-        </button>
         <button className="bg-white mb-2 px-4 py-3 rounded text-black text-left transition">
           Profile
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/questions")}
+          onClick={() => navigate("/alumni/questions")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Questions
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/post")}
+          onClick={() => navigate("/alumni/post")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Post
         </button>
         <button
-          onClick={() => (window.location.href = "/alumni/request")}
+          onClick={() => navigate("/alumni/request")}
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
         >
           Connection request
@@ -104,6 +109,35 @@ const AlumniProfile = () => {
                 </p>
               </div>
             </div>
+          </div>
+
+          {/* User Posts Section */}
+          <div className="bg-[#1a1a2e] shadow-lg mx-auto mt-8 p-6 rounded-xl max-w-4xl">
+            <h3 className="mb-4 font-bold text-violet-400 text-2xl">
+              My Posts
+            </h3>
+            {posts.length > 0 ? (
+              <ul className="space-y-4">
+                {posts.map((post, index) => (
+                  <li
+                    key={index}
+                    className="bg-[#0f0f1c] p-4 border border-gray-700 rounded-md"
+                  >
+                    <h4 className="font-semibold text-white text-lg">
+                      {post.title}
+                    </h4>
+                    <p className="mt-2 text-gray-400 text-sm">
+                      {post.content}
+                    </p>
+                    <p className="mt-2 text-gray-500 text-xs">
+                      Posted on: {new Date(post.createdAt).toLocaleDateString()}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p className="text-gray-400">You have not created any posts yet.</p>
+            )}
           </div>
         </div>
       ) : (

@@ -9,6 +9,9 @@ import AlumniProfile from './pages/AlumniProfile';
 import StudentProfile from './pages/StudentProfile';
 import StudentQuestionPage from './pages/StudentQuestionPage';
 import Connect from './pages/Connect';
+import AlumniPost from './pages/AlumniPost';
+import AlumniQuestions from './pages/AlumniQuestions';
+import AlumniRequest from './pages/AlumniRequest';
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Route path="/student/profile" element={<StudentProfile />} />
         <Route path="/student/questions" element={<StudentQuestionPage />} />
         <Route path="/student/connect" element={<Connect />} />
+        <Route path="/alumni/post" element={<AlumniPost/>} />
+        <Route path="/alumni/questions" element={<AlumniQuestions/>} />
+        <Route path="/alumni/request" element={<AlumniRequest/>} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

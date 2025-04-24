@@ -1,5 +1,6 @@
 import React from "react";
 import LogOut from "../componenets/logout";
+import { useNavigate } from "react-router-dom";
 
 const alumniList = [
   { id: 1, name: "Riya Sharma", position: "Software Engineer at Google" },
@@ -9,6 +10,7 @@ const alumniList = [
 ];
 
 const Connect = () => {
+  const navigate = useNavigate();
   return (
     <div className="flex bg-black min-h-screen text-white">
       {/* Sidebar */}
@@ -16,19 +18,19 @@ const Connect = () => {
         <div className="mb-10 font-sans font-bold text-2xl">Alumni Connect</div>
         <button
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
-          onClick={() => (window.location.href = "/student")}
+          onClick={() => (navigate("/student"))}
         >
           Feed
         </button>
         <button
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
-          onClick={() => (window.location.href = "/student/profile")}
+          onClick={() => (navigate("/student/profile"))}
         >
           Profile
         </button>
         <button
           className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
-          onClick={() => (window.location.href = "/student/questions")}
+          onClick={() => (navigate("/student/questions"))}
         >
           Questions
         </button>

@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema(
         },
         company: {
             type: String,
+            default: ""
         },
         age: {
             type: Number,

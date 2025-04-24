@@ -16,7 +16,7 @@ const Login = () => {
     if(response.status === 200) {
       localStorage.setItem("userId", response.data.data.user._id);
       if(response.data.data.user.role === "alumni") {
-        navigate("/alumni");
+        navigate("/alumni/profile");
       } else if(response.data.data.user.role === "student") {
         navigate("/student");
       }
