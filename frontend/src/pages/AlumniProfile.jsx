@@ -25,27 +25,45 @@ const AlumniProfile = () => {
   }, []);
 
   return (
-    <div className="bg-black pb-12 min-h-screen text-white">
-      {/* Navbar */}
-      <nav className="flex justify-between items-center bg-black px-6 py-4 text-white">
-        <div className="font-sans font-bold text-2xl">Alumni Connect</div>
-        <div className="flex flex-wrap gap-2">
-          <button
-            className="hover:bg-white px-4 py-2 border border-white rounded hover:text-black transition"
-            onClick={() => (window.location.href = "/alumni")}
-          >
-            Feed
-          </button>
-          <button className="hover:bg-white px-4 py-2 border border-white rounded hover:text-black transition">
-            Profile
-          </button>
+    <div className="flex bg-black min-h-screen text-white">
+      {/* Left Sidebar Navigation */}
+      <aside className="flex flex-col bg-[#0f0f1c] p-6 border-gray-800 border-r w-64">
+        <div className="mb-10 font-sans font-bold text-2xl">Alumni Connect</div>
+        <button
+          className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
+          onClick={() => (window.location.href = "/alumni")}
+        >
+          Feed
+        </button>
+        <button className="bg-white mb-2 px-4 py-3 rounded text-black text-left transition">
+          Profile
+        </button>
+        <button
+          onClick={() => (window.location.href = "/alumni/questions")}
+          className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
+        >
+          Questions
+        </button>
+        <button
+          onClick={() => (window.location.href = "/alumni/post")}
+          className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
+        >
+          Post
+        </button>
+        <button
+          onClick={() => (window.location.href = "/alumni/request")}
+          className="hover:bg-white mb-2 px-4 py-3 rounded hover:text-black text-left transition"
+        >
+          Connection request
+        </button>
+        <div className="mt-auto">
           <LogOut />
         </div>
-      </nav>
+      </aside>
 
       {/* Profile Content */}
       {user ? (
-        <div className="bg-[#0f0f1c] px-6 py-10 min-h-screen text-white">
+        <div className="flex-1 bg-[#0f0f1c] px-6 py-10 min-h-screen text-white">
           <div className="bg-[#1a1a2e] shadow-lg mx-auto p-6 rounded-xl max-w-4xl">
             <div className="flex items-center gap-6 mb-6">
               <img
